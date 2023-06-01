@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teste_dart_flutter/main.reflectable.dart';
 import 'package:teste_dart_flutter/teste.dart';
 
 void main() async {
-  initializeReflectable();
-  await APIClient.instance.login(
-    authCookies: 'authCookies',
-  );
   runApp(const MyApp());
 }
 
@@ -47,6 +42,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // FutureBuilder(
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData) {
+            //       return ListTile(
+            //         title: Text(
+            //           snapshot.data!.foto,
+            //         ),
+            //         leading: CircleAvatar(
+            //           backgroundImage: NetworkImage(
+            //             snapshot.data!.foto,
+            //           ),
+            //         ),
+            //       );
+            //     } else if (snapshot.hasError) {
+            //       return Text(snapshot.error.toString());
+            //     }
+            //     return const CircularProgressIndicator();
+            //   },
+            //   future: Client.instance.client.getFoto(),
+            // ),
             FutureBuilder(
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -63,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(
-                            snapshot.data![index].foto.foto,
+                            snapshot.data![index].foto.url,
                           ),
                         ),
                       );
@@ -75,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
                 return const CircularProgressIndicator();
               },
-              future: APIClient.instance.usuario.usuarios,
+              future: Client.instance.client.getUsuarios(),
             ),
           ],
         ),
